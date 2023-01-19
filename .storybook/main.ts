@@ -3,16 +3,7 @@ const ResolveTypeScriptPlugin = require('resolve-typescript-plugin')
 
 module.exports = {
 	stories: [
-		"../packages/**/*.stories.mdx",
 		"../packages/**/*.stories.ts"
-	],
-	addons: [
-		"@storybook/addon-links",
-		"@storybook/addon-essentials",
-		{
-			name: "@storybook/addon-docs",
-			options: { transcludeMarkdown: true },
-		},
 	],
 	framework: "@storybook/web-components",
 	core: {

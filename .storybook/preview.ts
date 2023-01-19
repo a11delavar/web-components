@@ -1,5 +1,3 @@
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
-
 export const parameters = {
 	docs: {
 		inlineStories: true,
@@ -7,9 +5,6 @@ export const parameters = {
 			type: 'dynamic',
 			language: 'html',
 		}
-	},
-	viewport: {
-		viewports: INITIAL_VIEWPORTS,
 	},
 	controls: {
 		expanded: true,

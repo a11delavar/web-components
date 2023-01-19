@@ -1,0 +1,33 @@
+{
+	"name": "@a11d/lit-slider",
+	"version": "0.0.4",
+	"description": "Lit-based Web Components for swiper.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arshia11d/lit-slider.git"
+	},
+	"keywords": [
+		"lit",
+		"swiper.js",
+		"swiper",
+		"slider",
+		"web-component"
+	],
+	"author": "arshia11d",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/arshia11d/lit-slider/issues"
+	},
+	"homepage": "https://github.com/arshia11d/lit-slider#readme",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"module": "dist/index.js",
+	"files": [
+		"dist"
+	],
+	"dependencies": {
+		"@a11d/lit": "x",
+		"swiper": "8.x",
+		"@3mo/slot-controller": "x"
+	}
+}
