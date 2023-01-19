@@ -1,0 +1,48 @@
+{
+	"scripts": {
+		"start": "npm run clean && npm install && start-storybook -p 3000",
+		"test": "npm install && webpack --config ./webpack.config.test.mjs && concurrently --raw \"webpack --watch --config ./webpack.config.test.mjs\" \"karma start\" --restart-tries -1",
+		"test:ci": "webpack --config ./webpack.config.test.mjs && karma start --single-run",
+		"docs:build": "build-storybook -o docs-dist",
+		"clean": "node ./scripts/clean.mjs",
+		"release": "node ./scripts/release.mjs",
+		"analyze": "cem analyze --globs \"packages/**/*.ts\" --exclude \"packages/**/*.(stories|test).ts\" --litelement"
+	},
+	"workspaces": [
+		"./packages/*"
+	],
+	"devDependencies": {
+		"@a11d/eslint-config": "x",
+		"@a11d/lit": "x",
+		"@custom-elements-manifest/analyzer": "x",
+		"@storybook/addon-actions": "6.x",
+		"@storybook/addon-essentials": "6.x",
+		"@storybook/addon-links": "6.x",
+		"@storybook/builder-webpack5": "6.x",
+		"@storybook/manager-webpack5": "6.x",
+		"@storybook/web-components": "6.x",
+		"@types/jasmine": "x",
+		"@typescript-eslint/eslint-plugin": "x",
+		"@typescript-eslint/parser": "x",
+		"concurrently": "x",
+		"del-cli": "x",
+		"eslint": "x",
+		"eslint-plugin-import": "x",
+		"eslint-plugin-lit": "x",
+		"html-webpack-plugin": "x",
+		"karma": "x",
+		"karma-chrome-launcher": "x",
+		"karma-firefox-launcher": "x",
+		"karma-helpful-reporter": "x",
+		"karma-jasmine": "x",
+		"minify-html-literals-loader": "x",
+		"resolve-typescript-plugin": "x",
+		"terser-webpack-plugin": "x",
+		"ts-loader": "x",
+		"tsconfig-paths-webpack-plugin": "x",
+		"typescript": "4.x",
+		"webpack": "x",
+		"webpack-cli": "x",
+		"webpack-dev-server": "x"
+	}
+}
