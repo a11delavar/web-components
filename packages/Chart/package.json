@@ -1,0 +1,35 @@
+{
+	"name": "@a11d/lit-chart",
+	"version": "0.1.1",
+	"description": "Lit-based Web Components for chart.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/a11delavar/web-components.git"
+	},
+	"keywords": [
+		"lit",
+		"chart.js",
+		"chart",
+		"web-component"
+	],
+	"author": "a11delavar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/a11delavar/web-components/issues"
+	},
+	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@a11d/lit": "x",
+		"chart.js": "4.x"
+	}
+}

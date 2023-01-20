@@ -4,7 +4,7 @@
 	"description": "Lit-based Web Components for swiper.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arshia11d/lit-slider.git"
+		"url": "git+https://github.com/a11delavar/web-components.git"
 	},
 	"keywords": [
 		"lit",
@@ -13,18 +13,22 @@
 		"slider",
 		"web-component"
 	],
-	"author": "arshia11d",
+	"author": "a11delavar",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/arshia11d/lit-slider/issues"
+		"url": "https://github.com/a11delavar/web-components/issues"
 	},
-	"homepage": "https://github.com/arshia11d/lit-slider#readme",
+	"homepage": "https://github.com/a11delavar/web-components#readme",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"module": "dist/index.js",
 	"files": [
 		"dist"
 	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	},
 	"dependencies": {
 		"@a11d/lit": "x",
 		"swiper": "8.x",
