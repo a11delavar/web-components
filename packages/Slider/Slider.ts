@@ -89,6 +89,7 @@ SwiperCore.Swiper.use([
  * @attr keyboardPageUpDown - Set to true to enable navigation through slides using keyboard arrows (Page Up/Down and Left/Right arrows)
  *
  * Mousewheel Properties
+ * @attr hasMousewheel - Enables mousewheel control
  * @attr mousewheelForceToAxis - Set to true to force mousewheel swipes to axis. So in horizontal mode mousewheel will only work for horizontal scrolling, and in vertical mode for vertical scrolling.
  * @attr mousewheelInvert - Set to true and mousewheel will scroll in the opposite direction
  * @attr mousewheelReleaseOnEdges - Set to true if you want to release mousewheel event when swiper is on the edge positions (in the beginning or in the end)
@@ -162,6 +163,7 @@ export class Slider extends Component {
 	@swiperProperty({ type: Boolean }) keyboardPageUpDown = false
 
 	// Mousewheel Properties
+	@swiperProperty({ type: Boolean }) hasMousewheel = false
 	@swiperProperty({ type: Boolean }) mousewheelForceToAxis = false
 	@swiperProperty({ type: Boolean }) mousewheelInvert = false
 	@swiperProperty({ type: Boolean }) mousewheelReleaseOnEdges = false
@@ -290,7 +292,7 @@ export class Slider extends Component {
 				onlyInViewport: this.keyboardOnlyInViewport,
 				pageUpDown: this.keyboardPageUpDown,
 			},
-			mousewheel: {
+			mousewheel: !this.hasMousewheel ? false : {
 				forceToAxis: this.mousewheelForceToAxis,
 				invert: this.mousewheelInvert,
 				releaseOnEdges: this.mousewheelReleaseOnEdges,

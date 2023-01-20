@@ -123,7 +123,7 @@ export const Centered = story({
 
 export const Autoplay = story({
 	render: () => html`
-		<lit-slider style='height: 400px' hasNavigation autoplayDelay='2500'>
+		<lit-slider style='height: 400px' hasNavigation hasAutoplay autoplayDelay='2500'>
 			${defaultSlides}
 		</lit-slider>
 	`
