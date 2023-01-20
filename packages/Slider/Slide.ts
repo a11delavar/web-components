@@ -6,13 +6,12 @@ export class Slide extends Component {
 		return css`
 			:host {
 				display: flex;
-				justify-content: center;
+				position: relative;
+				overflow: hidden;
 				align-items: center;
+				justify-content: center;
 				height: 100%;
-				width: 100%;
-				background-size: cover !important;
-				background-repeat: no-repeat !important;
-				background-position: center !important;
+				max-width: 100%;
 				pointer-events: none;
 			}
 		`

@@ -1,10 +1,9 @@
-import { css, component, property, query, Component, html } from '@a11d/lit'
+import { css, component, property, query, Component, html, PropertyValues, event } from '@a11d/lit'
+import { SlotController } from '@3mo/slot-controller'
+import { swiperProperties, swiperProperty } from './swiperProperty.js'
 import { Slide } from './Slide.js'
 import { swiperStyles } from './styles.min.css.js'
 import * as SwiperCore from 'swiper'
-import type { PaginationOptions } from 'swiper/types/modules/pagination'
-import { SlotController } from '@3mo/slot-controller'
-
 
 SwiperCore.Swiper.use([
 	SwiperCore.A11y,
@@ -58,10 +57,10 @@ SwiperCore.Swiper.use([
  * @attr speed - Duration of transition between slides (in ms)
  * @attr threshold - Threshold value in px. If "touch distance" will be lower than this value then swiper will not move
  * @attr touchAngle - Allowable angle (in degrees) to trigger touch move
- * @attr watchSlidesProgress - Enables to watch progress of each slide's transition. This can be used to implement different effects or to synchronize multiple sliders
+ * @attr grabCursor - Set to true to enable grabbing cursor
  *
  * Autoplay Properties
- * @attr autoplay - Enables autoplay
+ * @attr hasAutoplay - Enables autoplay
  * @attr autoplayDelay - Delay between transitions (in ms)
  * @attr stopOnLastSlide - Stop autoplay when it reaches last slide (has effect only if loop parameter is false)
  * @attr disableAutoplayOnInteraction - Disable autoplay after user interactions e.g. swipes
@@ -80,62 +79,97 @@ SwiperCore.Swiper.use([
  * @attr formatPaginationFractionCurrent - Format fraction pagination current number. Function receives current number, and you need to return formatted value.
  * @attr formatPaginationFractionTotal - Format fraction pagination total number. Function receives total number, and you need to return formatted value.
  *
+ * Navigation Properties
+ * @attr hasNavigation - Enables navigation
+ * @attr showNavigationOnClick - Toggle (hide/show) navigation container visibility after click on Slider's container.
+ *
+ * Keyboard Properties
+ * @attr hasKeyboard - Enables keyboard control
+ * @attr keyboardOnlyInViewport - Set to true and swiper will be controlled only by pressing keys inside its container
+ * @attr keyboardPageUpDown - Set to true to enable navigation through slides using keyboard arrows (Page Up/Down and Left/Right arrows)
+ *
+ * Mousewheel Properties
+ * @attr mousewheelForceToAxis - Set to true to force mousewheel swipes to axis. So in horizontal mode mousewheel will only work for horizontal scrolling, and in vertical mode for vertical scrolling.
+ * @attr mousewheelInvert - Set to true and mousewheel will scroll in the opposite direction
+ * @attr mousewheelReleaseOnEdges - Set to true if you want to release mousewheel event when swiper is on the edge positions (in the beginning or in the end)
+ * @attr mousewheelThresholdDelta - Minimal mousewheel delta needed to trigger swiper slide change
+ * @attr mousewheelSensitivity - Mousewheel sensitivity
+ * @attr mousewheelThresholdTime - Minimal mousewheel speed required to trigger swiper slide change
+ *
  * @csspart slide - Slide element.
  * @csspart active - Active slide element.
  * @csspart pagination - Pagination element.
  * @csspart previousButton - Previous button navigation element.
  * @csspart nextButton - Next button navigation element.
+ *
+ * @fires slideChange - Dispatched when slide change
  */
 @component('lit-slider')
 export class Slider extends Component {
-	// TODO Events
+	@event() readonly slideChange!: EventDispatcher<number>
 
 	// Core Properties
-	@property({ type: Boolean, reflect: true }) preventSlideNext = false
-	@property({ type: Boolean, reflect: true }) preventSlidePrevious = false
-	@property({ type: Boolean, reflect: true }) autoHeight = false
-	@property({ type: Boolean, reflect: true }) centerInsufficientSlides = false
-	@property({ type: Boolean, reflect: true }) centeredActiveSlides = false
-	@property({ type: Boolean, reflect: true }) centeredActiveSlidesBounds = false
-	@property({ type: String, reflect: true }) direction: SwiperCore.SwiperOptions['direction'] = 'horizontal'
-	@property({ type: String, reflect: true }) effect: SwiperCore.SwiperOptions['effect'] = 'slide'
-	@property({ type: Boolean, reflect: true }) loop = false
-	@property({ type: Number, reflect: true }) loopAdditionalSlides = 0
-	@property({ type: Boolean, reflect: true }) loopFillGroupWithBlank = false
-	@property({ type: Boolean, reflect: true }) loopAllowSlide = false
-	@property({ type: Boolean, reflect: true }) rewind = false
-	@property({ type: Number, reflect: true }) slidesPerGroup = 1
-	@property({ type: Boolean, reflect: true }) slidesPerGroupAuto = false
-	@property({ type: Number, reflect: true }) slidesPerGroupSkip = 0
-	@property({ type: String, reflect: true }) slidesPerView: SwiperCore.SwiperOptions['slidesPerView'] = 1
-	@property({ type: Number, reflect: true }) spaceBetween = 0
-	@property({ type: Number, reflect: true }) speed = 300
-	@property({ type: Number, reflect: true }) threshold = 0
-	@property({ type: Number, reflect: true }) touchAngle = 45
-	@property({ type: Boolean, reflect: true }) watchSlidesProgress = true
+	@swiperProperty({ type: Boolean }) preventSlideNext = false
+	@swiperProperty({ type: Boolean }) preventSlidePrevious = false
+	@swiperProperty({ type: Boolean }) autoHeight = false
+	@swiperProperty({ type: Boolean }) centerInsufficientSlides = false
+	@swiperProperty({ type: Boolean }) centeredActiveSlides = false
+	@swiperProperty({ type: Boolean }) centeredActiveSlidesBounds = false
+	@swiperProperty({ type: String }) direction: 'horizontal' | 'vertical' = 'horizontal'
+	@swiperProperty({ type: String }) effect: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards' = 'slide'
+	@swiperProperty({ type: Boolean }) loop = false
+	@swiperProperty({ type: Number }) loopAdditionalSlides = 0
+	@swiperProperty({ type: Boolean }) loopFillGroupWithBlank = false
+	@swiperProperty({ type: Boolean }) loopAllowSlide = false
+	@swiperProperty({ type: Boolean }) rewind = false
+	@swiperProperty({ type: Number }) slidesPerGroup = 1
+	@swiperProperty({ type: Boolean }) slidesPerGroupAuto = false
+	@swiperProperty({ type: Number }) slidesPerGroupSkip = 0
+	@swiperProperty({ type: String, reflect: true }) slidesPerView: number | 'auto' = 1
+	@swiperProperty({ type: Number }) spaceBetween = 0
+	@swiperProperty({ type: Number }) speed = 300
+	@swiperProperty({ type: Number }) threshold = 0
+	@swiperProperty({ type: Number }) touchAngle = 45
+	@swiperProperty({ type: Boolean }) grabCursor = false
 
 	// Autoplay Properties
-	@property({ type: Boolean, reflect: true }) autoplay = false
-	@property({ type: Number, reflect: true }) autoplayDelay = 3000
-	@property({ type: Boolean, reflect: true }) stopOnLastSlide = false
-	@property({ type: Boolean, reflect: true }) disableAutoplayOnInteraction = false
-	@property({ type: Boolean, reflect: true }) reverseAutoplayDirection = false
-	@property({ type: Boolean, reflect: true }) waitForAutoplayTransition = false
-	@property({ type: Boolean, reflect: true }) pauseAutoplayOnMouseEnter = false
+	@swiperProperty({ type: Boolean }) hasAutoplay = false
+	@swiperProperty({ type: Number }) autoplayDelay = 3000
+	@swiperProperty({ type: Boolean }) stopOnLastSlide = false
+	@swiperProperty({ type: Boolean }) disableAutoplayOnInteraction = false
+	@swiperProperty({ type: Boolean }) reverseAutoplayDirection = false
+	@swiperProperty({ type: Boolean }) waitForAutoplayTransition = false
+	@swiperProperty({ type: Boolean }) pauseAutoplayOnMouseEnter = false
 
 	// Pagination Properties
-	@property({ type: Boolean, reflect: true }) hasPagination = false
-	@property({ type: String, reflect: true }) paginationType: PaginationOptions['type'] = 'bullets'
-	@property({ type: Boolean, reflect: true }) dynamicPaginationBullets: PaginationOptions['dynamicBullets'] = false
-	@property({ type: Number, reflect: true }) dynamicPaginationMainBullets: PaginationOptions['dynamicMainBullets'] = 1
-	@property({ type: Boolean, reflect: true }) showPaginationOnClick: PaginationOptions['hideOnClick'] = false
-	@property({ type: Boolean, reflect: true }) clickablePagination: PaginationOptions['clickable'] = false
-	@property({ type: Boolean, reflect: true }) oppositePaginationProgressBar: PaginationOptions['progressbarOpposite'] = false
-	@property({ type: Object }) formatPaginationFractionCurrent?: PaginationOptions['formatFractionCurrent']
-	@property({ type: Object }) formatPaginationFractionTotal?: PaginationOptions['formatFractionTotal']
+	@swiperProperty({ type: Boolean }) hasPagination = false
+	@swiperProperty({ type: String }) paginationType: 'bullets' | 'fraction' | 'progressbar' | 'custom' = 'bullets'
+	@swiperProperty({ type: Boolean }) dynamicPaginationBullets = false
+	@swiperProperty({ type: Number }) dynamicPaginationMainBullets = 1
+	@swiperProperty({ type: Boolean }) showPaginationOnClick = false
+	@swiperProperty({ type: Boolean }) clickablePagination = false
+	@swiperProperty({ type: Boolean }) oppositePaginationProgressBar = false
+	@swiperProperty({ type: Object }) formatPaginationFractionCurrent?: (number: number) => number | string
+	@swiperProperty({ type: Object }) formatPaginationFractionTotal?: (number: number) => number | string
 
-	@property({ type: Boolean, reflect: true }) hasNavigation = false
-	// TODO: Navigation Properties
+	// Navigation Properties
+	@swiperProperty({ type: Boolean, reflect: true }) hasNavigation = false
+	@swiperProperty({ type: Boolean }) showNavigationOnClick = false
+
+	// Keyboard Properties
+	@swiperProperty({ type: Boolean }) hasKeyboard = false
+	@swiperProperty({ type: Boolean }) keyboardOnlyInViewport = false
+	@swiperProperty({ type: Boolean }) keyboardPageUpDown = false
+
+	// Mousewheel Properties
+	@swiperProperty({ type: Boolean }) mousewheelForceToAxis = false
+	@swiperProperty({ type: Boolean }) mousewheelInvert = false
+	@swiperProperty({ type: Boolean }) mousewheelReleaseOnEdges = false
+	@swiperProperty({ type: Number }) mousewheelThresholdDelta?: number
+	@swiperProperty({ type: Number }) mousewheelSensitivity?: number
+	@swiperProperty({ type: Number }) mousewheelThresholdTime?: number
+
+	// TODO: FreeMode module
 
 	// TODO: Other modules
 
@@ -158,8 +192,9 @@ export class Slider extends Component {
 		this.initializeSlider()
 	}
 
-	protected override updated() {
-		this.updateSlider()
+	protected override updated(props: PropertyValues) {
+		super.updated(props)
+		this.updateSlider(props)
 	}
 
 	protected slider?: SwiperCore.Swiper
@@ -171,76 +206,104 @@ export class Slider extends Component {
 			slidesPerView: Math.min(Math.max(4, this.slides.length), 8),
 			watchSlidesProgress: true,
 		})
-		this.slider = new SwiperCore.Swiper(this.sliderElement, {
-			navigation: {
-				prevEl: this.previousButtonElement,
-				nextEl: this.nextButtonElement,
-				hideOnClick: true,
-			},
-			pagination: {
-				el: this.paginationElement,
-			},
-			thumbs: {
-				swiper: this.thumbsSlider,
-			},
-			on: {
-				activeIndexChange: () => this.requestUpdate()
-			}
-		})
+		this.slider = new SwiperCore.Swiper(this.sliderElement, this.parameters)
 	}
 
-	protected updateSlider() {
-		if (this.slider) {
-			this.slider.params = {
-				...this.slider.params,
-				allowSlideNext: this.preventSlideNext === false,
-				allowSlidePrev: this.preventSlidePrevious === false,
-				autoHeight: this.autoHeight,
-				centerInsufficientSlides: this.centerInsufficientSlides,
-				centeredSlides: this.centeredActiveSlides,
-				centeredSlidesBounds: this.centeredActiveSlidesBounds,
-				direction: this.direction,
-				loop: this.loop,
-				loopAdditionalSlides: this.loopAdditionalSlides,
-				loopFillGroupWithBlank: this.loopFillGroupWithBlank,
-				loopPreventsSlide: this.loopAllowSlide === false,
-				rewind: this.rewind,
-				slidesPerGroup: this.slidesPerGroup,
-				slidesPerGroupAuto: this.slidesPerGroupAuto,
-				slidesPerGroupSkip: this.slidesPerGroupSkip,
-				slidesPerView: this.slidesPerView === 'auto' ? 'auto' : Number(this.slidesPerView),
-				spaceBetween: this.spaceBetween,
-				speed: this.speed,
-				threshold: this.threshold,
-				touchAngle: this.touchAngle,
-				watchSlidesProgress: this.watchSlidesProgress,
-				autoplay: typeof this.slider.params.autoplay === 'boolean' || typeof this.slider.params.autoplay === 'undefined' ? undefined : {
-					...this.slider.params.autoplay,
-					delay: this.autoplayDelay,
-					disableOnInteraction: this.disableAutoplayOnInteraction,
-					reverseDirection: this.reverseAutoplayDirection,
-					waitForTransition: this.waitForAutoplayTransition,
-					stopOnLastSlide: this.stopOnLastSlide,
-					pauseOnMouseEnter: this.pauseAutoplayOnMouseEnter,
-				},
-				pagination: typeof this.slider.params.pagination === 'boolean' ? false : {
-					...this.slider.params.pagination,
-					type: this.paginationType,
-					dynamicBullets: this.dynamicPaginationBullets,
-					dynamicMainBullets: this.dynamicPaginationMainBullets,
-					hideOnClick: this.showPaginationOnClick === false,
-					clickable: this.clickablePagination,
-					progressbarOpposite: this.oppositePaginationProgressBar,
-					formatFractionCurrent: this.formatPaginationFractionCurrent ?? this.slider.params.pagination?.formatFractionCurrent,
-					formatFractionTotal: this.formatPaginationFractionTotal ?? this.slider.params.pagination?.formatFractionTotal,
-				},
+	protected async updateSlider(props: PropertyValues) {
+		const hasChanged = [...props].some(([key]) => swiperProperties.has(key as string))
+		if (this.slider && hasChanged) {
+			if (hasChanged) {
+				this.slider.params = {
+					...this.slider.originalParams,
+					...this.parameters,
+				}
 			}
 			this.slider.update()
 			this.slider.pagination.render()
 			this.slider.pagination.update()
 			this.thumbsSlider?.update()
-			this.slider.allowSlideNext = this.preventSlideNext === false
-			this.slider.allowSlidePrev = this.preventSlidePrevious === false
+			await new Promise(resolve => setTimeout(resolve, 500))
+			this.slider.update()
+			// this.slider.changeDirection(this.direction)
+			const direction = getComputedStyle(this).direction
+			this.slider.changeLanguageDirection(direction === 'rtl' ? 'rtl' : 'ltr')
+		}
+	}
+
+	get parameters(): SwiperCore.SwiperOptions {
+		return {
+			allowSlideNext: this.preventSlideNext === false,
+			allowSlidePrev: this.preventSlidePrevious === false,
+			autoHeight: this.autoHeight,
+			centerInsufficientSlides: this.centerInsufficientSlides,
+			centeredSlides: this.centeredActiveSlides,
+			centeredSlidesBounds: this.centeredActiveSlidesBounds,
+			direction: this.direction,
+			loop: this.loop,
+			loopAdditionalSlides: this.loopAdditionalSlides,
+			loopFillGroupWithBlank: this.loopFillGroupWithBlank,
+			loopPreventsSlide: this.loopAllowSlide === false,
+			rewind: this.rewind,
+			slidesPerGroup: this.slidesPerGroup,
+			slidesPerGroupAuto: this.slidesPerGroupAuto,
+			slidesPerGroupSkip: this.slidesPerGroupSkip,
+			slidesPerView: this.slidesPerView === 'auto' ? 'auto' : Number(this.slidesPerView),
+			spaceBetween: this.spaceBetween,
+			speed: this.speed,
+			effect: this.effect,
+			grabCursor: this.grabCursor,
+			threshold: this.threshold,
+			touchAngle: this.touchAngle,
+			autoplay: !this.hasAutoplay ? false : {
+				delay: this.autoplayDelay,
+				disableOnInteraction: this.disableAutoplayOnInteraction,
+				reverseDirection: this.reverseAutoplayDirection,
+				waitForTransition: this.waitForAutoplayTransition,
+				stopOnLastSlide: this.stopOnLastSlide,
+				pauseOnMouseEnter: this.pauseAutoplayOnMouseEnter,
+			},
+			thumbs: !this.hasThumb ? undefined : {
+				...(typeof this.slider?.params.thumbs !== 'object' ? {} : this.slider?.params.thumbs),
+				swiper: this.thumbsSlider,
+			},
+			pagination: !this.hasPagination ? false : {
+				...(typeof this.slider?.params.pagination !== 'object' ? {} : this.slider?.params.pagination),
+				el: this.paginationElement,
+				type: this.paginationType,
+				dynamicBullets: this.dynamicPaginationBullets,
+				dynamicMainBullets: this.dynamicPaginationMainBullets,
+				hideOnClick: this.showPaginationOnClick === false,
+				clickable: this.clickablePagination,
+				progressbarOpposite: this.oppositePaginationProgressBar,
+				formatFractionCurrent: this.formatPaginationFractionCurrent ?? (value => value),
+				formatFractionTotal: this.formatPaginationFractionTotal ?? (value => value),
+			},
+			navigation: !this.hasNavigation ? false : {
+				...(typeof this.slider?.params.navigation !== 'object' ? {} : this.slider?.params.navigation),
+				prevEl: this.previousButtonElement,
+				nextEl: this.nextButtonElement,
+				hideOnClick: this.showNavigationOnClick === false,
+			},
+			keyboard: this.hasKeyboard ? undefined : {
+				...(typeof this.slider?.params.keyboard !== 'object' ? {} : this.slider?.params.keyboard),
+				enabled: this.hasKeyboard,
+				onlyInViewport: this.keyboardOnlyInViewport,
+				pageUpDown: this.keyboardPageUpDown,
+			},
+			mousewheel: {
+				forceToAxis: this.mousewheelForceToAxis,
+				invert: this.mousewheelInvert,
+				releaseOnEdges: this.mousewheelReleaseOnEdges,
+				thresholdDelta: this.mousewheelThresholdDelta,
+				sensitivity: this.mousewheelSensitivity,
+				thresholdTime: this.mousewheelThresholdTime,
+			},
+			on: {
+				activeIndexChange: (swiper) => {
+					this.slideChange.dispatch(swiper.activeIndex)
+					this.requestUpdate()
+				},
+			}
 		}
 	}
 
@@ -287,7 +350,7 @@ export class Slider extends Component {
 				height: var(--swiper-thumb-height, 100px);
 			}
 
-			.gallery-thumbs .swiper-slide {
+			.gallery-thumbs {
 				height: 100%;
 				opacity: 0.25;
 				transition: 200ms;
@@ -300,12 +363,16 @@ export class Slider extends Component {
 			.gallery-thumbs .swiper-slide-thumb-active {
 				opacity: 1;
 			}
+
+			:host([slidesPerView=auto]) .swiper-slide {
+				width: auto !important;
+			}
 		`
 	}
 
 	protected override get template() {
 		return html`
-			<div class='swiper-container gallery-top'>
+			<div class='swiper gallery-top'>
 				<div class='swiper-wrapper'>
 					${this.slides.map((slide, index) => this.getSlideTemplate(slide, index))}
 				</div>
@@ -326,7 +393,7 @@ export class Slider extends Component {
 		slide.slot = slotName
 		return html`
 			<div class='swiper-slide'>
-				<slot name=${slotName} style='display: block; height: 100%;'></slot>
+				<slot name=${slotName}></slot>
 			</div>
 		`
 	}
