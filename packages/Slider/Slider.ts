@@ -230,6 +230,7 @@ export class Slider extends Component {
 			const direction = getComputedStyle(this).direction
 			this.slider.changeLanguageDirection(direction === 'rtl' ? 'rtl' : 'ltr')
 		}
+		this.slider?.update()
 	}
 
 	get parameters(): SwiperCore.SwiperOptions {
