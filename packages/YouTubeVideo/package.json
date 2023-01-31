@@ -1,0 +1,36 @@
+{
+	"name": "@a11d/lit-youtube-video",
+	"version": "0.0.0",
+	"description": "Youtube video web component",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/a11delavar/web-components.git"
+	},
+	"keywords": [
+		"web-component",
+		"lit",
+		"youtube",
+		"video",
+		"player"
+	],
+	"author": "a11delavar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/a11delavar/web-components/issues"
+	},
+	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"module": "dist/index.js",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@a11d/lit": "x",
+		"youtube-iframe": "x"
+	}
+}
