@@ -306,6 +306,9 @@ export class Slider extends Component {
 					this.slideChange.dispatch(swiper.activeIndex)
 					this.requestUpdate()
 				},
+				click: (swiper, event) => {
+					this.slides[swiper.clickedIndex]?.dispatchEvent(new MouseEvent('click', event))
+				}
 			}
 		}
 	}
