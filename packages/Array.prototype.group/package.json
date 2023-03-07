@@ -1,0 +1,30 @@
+{
+	"name": "@a11d/array.prototype.group",
+	"version": "1.0.0",
+	"description": "Array prototype extensions to group array items.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/a11delavar/web-components.git"
+	},
+	"keywords": [
+		"array",
+		"group",
+		"group-to-map"
+	],
+	"author": "a11delavar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/a11delavar/web-components/issues"
+	},
+	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	}
+}
