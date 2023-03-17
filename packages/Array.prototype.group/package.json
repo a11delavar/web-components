@@ -1,6 +1,6 @@
 {
 	"name": "@a11d/array.prototype.group",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Array prototype extensions to group array items.",
 	"repository": {
 		"type": "git",
