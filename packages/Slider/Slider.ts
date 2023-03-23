@@ -211,26 +211,21 @@ export class Slider extends Component {
 		this.slider = new SwiperCore.Swiper(this.sliderElement, this.parameters)
 	}
 
-	protected async updateSlider(props: PropertyValues) {
+	protected updateSlider(props: PropertyValues) {
 		const hasChanged = [...props].some(([key]) => swiperProperties.has(key as string))
 		if (this.slider && hasChanged) {
-			if (hasChanged) {
-				this.slider.params = {
-					...this.slider.originalParams,
-					...this.parameters,
-				}
+			this.slider.params = {
+				...this.slider.originalParams,
+				...this.parameters,
 			}
-			this.slider.update()
-			this.slider.pagination.render()
-			this.slider.pagination.update()
-			this.thumbsSlider?.update()
-			await new Promise(resolve => setTimeout(resolve, 500))
-			this.slider.update()
-			// this.slider.changeDirection(this.direction)
-			const direction = getComputedStyle(this).direction
-			this.slider.changeLanguageDirection(direction === 'rtl' ? 'rtl' : 'ltr')
 		}
 		this.slider?.update()
+		this.slider?.pagination.render()
+		this.slider?.pagination.update()
+		this.thumbsSlider?.update()
+		// this.slider.changeDirection(this.direction)
+		const direction = getComputedStyle(this).direction
+		this.slider?.changeLanguageDirection(direction === 'rtl' ? 'rtl' : 'ltr')
 	}
 
 	get parameters(): SwiperCore.SwiperOptions {
