@@ -1,0 +1,38 @@
+{
+	"name": "@a11d/lit-qr-code",
+	"version": "0.0.1",
+	"description": "A QR-Code web component.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/a11delavar/web-components.git"
+	},
+	"keywords": [
+		"web-component",
+		"lit",
+		"qrcode"
+	],
+	"author": "a11delavar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/a11delavar/web-components/issues"
+	},
+	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@a11d/lit": "x",
+		"@3mo/slot-controller": "x",
+		"qrcode": "x"
+	},
+	"devDependencies": {
+		"@types/qrcode": "x"
+	}
+}
