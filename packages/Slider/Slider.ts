@@ -1,9 +1,10 @@
 import { css, component, property, query, Component, html, PropertyValues, event } from '@a11d/lit'
 import { SlotController } from '@3mo/slot-controller'
 import { swiperProperties, swiperProperty } from './swiperProperty.js'
-import { Slide } from './Slide.js'
 import { swiperStyles } from './styles.min.css.js'
 import * as SwiperCore from 'swiper'
+import { Slide } from './Slide.js'
+import { ThumbSlide } from './ThumbSlide.js'
 
 SwiperCore.Swiper.use([
 	SwiperCore.A11y,
@@ -97,6 +98,9 @@ SwiperCore.Swiper.use([
  * @attr mousewheelSensitivity - Mousewheel sensitivity
  * @attr mousewheelThresholdTime - Minimal mousewheel speed required to trigger swiper slide change
  *
+ * @cssprop --lit-slider-thumb-height - Height of the thumb element.
+ * @cssprop --lit-slider-thumb-margin - Margin of the thumb element.
+ *
  * @csspart slide - Slide element.
  * @csspart active - Active slide element.
  * @csspart pagination - Pagination element.
@@ -188,6 +192,10 @@ export class Slider extends Component {
 
 	get slides() {
 		return [...this.children].filter((child): child is Slide => child instanceof Slide)
+	}
+
+	get thumbSlides() {
+		return [...this.children].filter((child): child is ThumbSlide => child instanceof ThumbSlide)
 	}
 
 	protected override initialized() {
@@ -339,7 +347,8 @@ export class Slider extends Component {
 			}
 
 			:host([hasThumb]) .gallery-top {
-				height: calc(100% - var(--swiper-thumb-height, 100px) - var(--swiper-thumb-margin, 10px));
+				height: calc(100% - var(--lit-slider-thumb-height, 100px) - var(--lit-slider-thumb-margin, 10px));
+				transition: height 0.3s ease;
 			}
 
 			:host(:not([hasThumb])) .gallery-thumbs {
@@ -347,18 +356,21 @@ export class Slider extends Component {
 			}
 
 			.gallery-thumbs {
-				margin-top: var(--thumbs-margin-top, 10px);
-				height: var(--swiper-thumb-height, 100px);
+				margin-top: var(--lit-slider-thumb-margin, 10px);
+				height: var(--lit-slider-thumb-height, 100px);
+				transition: height 0.3s ease;
 			}
 
-			.gallery-thumbs {
+			.gallery-thumbs .swiper-wrapper {
+				justify-content: center;
+			}
+
+			.gallery-thumbs .swiper-slide {
 				height: 100%;
+				display: inline-flex;
+				width: auto !important;
 				opacity: 0.25;
-				transition: 200ms;
 				cursor: pointer;
-				background-position: center !important;
-				background-repeat: no-repeat !important;
-				background-size: cover !important;
 			}
 
 			.gallery-thumbs .swiper-slide-thumb-active {
@@ -386,9 +398,9 @@ export class Slider extends Component {
 
 	protected getSlideTemplate(slide: Slide, index: number) {
 		if (this.slider?.activeIndex === index ?? false) {
-			slide.part.add('active')
+			slide.setAttribute('active', '')
 		} else {
-			slide.part.remove('active')
+			slide.removeAttribute('active')
 		}
 		const slotName = `slide-${index + 1}`
 		slide.slot = slotName
@@ -416,12 +428,18 @@ export class Slider extends Component {
 		return html`
 			<div class='swiper-container gallery-thumbs'>
 				<div class='swiper-wrapper'>
-					${this.slides.map((slide, index) => html`
-						<div style='background: ${slide.style.background}' class='swiper-slide gallery-thumb'
-							@click=${() => this.slider?.slideTo(index)}
-						></div>
-					`)}
+					${this.thumbSlides.map((slide, index) => this.getThumbSlideTemplate(slide, index))}
 				</div>
+			</div>
+		`
+	}
+
+	protected getThumbSlideTemplate(slide: ThumbSlide, index: number) {
+		const slotName = `thumb-slide-${index + 1}`
+		slide.slot = slotName
+		return html`
+			<div class='swiper-slide gallery-thumb' @click=${() => this.slider?.slideTo(index)}>
+				<slot name=${slotName}></slot>
 			</div>
 		`
 	}

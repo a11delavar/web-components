@@ -37,6 +37,14 @@ const defaultSlides = html`
 	`)}
 `
 
+const defaultThumbSlides = html`
+	${slidesBackgrounds.map(background => html`
+		<lit-thumb-slide>
+			<img src=${background} style='height: 100%; object-fit: cover'>
+		</lit-thumb-slide>
+	`)}
+`
+
 export const Default = story({
 	render: () => html`
 		<lit-slider style='height: 400px'>
@@ -241,8 +249,13 @@ export const XManipulation = story({
 	render: () => html``
 })
 
-export const XThumbsGallery = story({
-	render: () => html``
+export const ThumbsGallery = story({
+	render: () => html`
+		<lit-slider style='height: 400px' hasThumb>
+			${defaultSlides}
+			${defaultThumbSlides}
+		</lit-slider>
+	`
 })
 
 export const XThumbsGalleryLoop = story({

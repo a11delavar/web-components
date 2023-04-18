@@ -18,9 +18,7 @@ export class Slide extends Component {
 	}
 
 	protected override get template() {
-		return html`
-			<slot></slot>
-		`
+		return html`<slot></slot>`
 	}
 }
 
