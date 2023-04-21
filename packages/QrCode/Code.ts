@@ -63,6 +63,6 @@ export class QrCode extends Component {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'solid-qr-code': QrCode
+		'lit-qr-code': QrCode
 	}
 }
