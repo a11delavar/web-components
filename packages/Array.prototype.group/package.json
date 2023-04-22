@@ -1,6 +1,6 @@
 {
 	"name": "@a11d/array.prototype.group",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Array prototype extensions to group array items.",
 	"repository": {
 		"type": "git",
@@ -17,6 +17,7 @@
 		"url": "https://github.com/a11delavar/web-components/issues"
 	},
 	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",

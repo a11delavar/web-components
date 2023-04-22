@@ -54,6 +54,7 @@ export class Tweet extends Component {
 				display: block;
 				width: 100%;
 				height: 100%;
+				border-radius: 13px;
 			}
 		`
 	}

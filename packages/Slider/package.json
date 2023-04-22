@@ -1,6 +1,6 @@
 {
 	"name": "@a11d/lit-slider",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "Lit-based Web Components for swiper.js",
 	"repository": {
 		"type": "git",
@@ -19,6 +19,7 @@
 		"url": "https://github.com/a11delavar/web-components/issues"
 	},
 	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"module": "dist/index.js",

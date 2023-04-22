@@ -1,1 +1,1 @@
-import './Code.js'
+export * from './Code.js'

@@ -1,6 +1,6 @@
 {
 	"name": "@a11d/lit-tweet",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"description": "A Tweet embed web component.",
 	"repository": {
 		"type": "git",
@@ -19,6 +19,7 @@
 		"url": "https://github.com/a11delavar/web-components/issues"
 	},
 	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",

@@ -7,7 +7,7 @@
 		"declarationMap": true,
 		"target": "ES2017",
 		"module": "NodeNext",
-		"moduleResolution": "Node",
+		"moduleResolution": "NodeNext",
 		"strict": true,
 		"importHelpers": true,
 		"noUnusedLocals": true,

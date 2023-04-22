@@ -1,1 +1,1 @@
-import './Tweet.js'
+export * from './Tweet.js'
