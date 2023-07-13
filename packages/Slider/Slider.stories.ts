@@ -20,7 +20,7 @@ export default meta({
 })
 
 const slidesBackgrounds = [
-	'https://cdn.wallpaperhub.app/cloudcache/e/6/8/e/e/5/e68ee56be36553b1cd8f04a99ab5dca852ed2c17.jpg',
+	'https://www.wallpaperhub.app/_next/image?url=https%3A%2F%2Fcdn.wallpaperhub.app%2Fcloudcache%2Fb%2F6%2Fc%2F2%2Ff%2Fb%2Fb6c2fb64a2da2ad40143691bd658bf036b95dd10.jpg&w=3240&h=2160&q=100',
 	'https://cdn.wallpaperhub.app/cloudcache/c/4/6/6/9/5/c466951338ea55aaf769cd36efe1f875b7769f0a.png',
 	'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg',
 	'https://cdn.wallpaperhub.app/cloudcache/e/3/9/2/8/b/e3928b0590021236e05c6781de43e8cce6dddeae.jpg',
