@@ -1,0 +1,39 @@
+{
+	"name": "@a11d/lit-monaco-editor",
+	"version": "0.0.2",
+	"description": "The Monaco Editor is the fully featured code editor from VS Code. This is a wrapper around it to make it easier to use in a web component.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/a11delavar/web-components.git"
+	},
+	"keywords": [
+		"web-component",
+		"lit",
+		"monaco",
+		"editor",
+		"monaco-editor",
+		"vscode",
+		"code"
+	],
+	"author": "a11delavar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/a11delavar/web-components/issues"
+	},
+	"homepage": "https://github.com/a11delavar/web-components#readme",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"start": "webpack serve --mode=development",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@a11d/lit": "x",
+		"monaco-editor": "^0.x"
+	}
+}
