@@ -6,6 +6,7 @@
 		"test:ci": "webpack --config ./webpack.config.test.mjs && karma start --single-run",
 		"docs:build": "build-storybook -o docs-dist",
 		"clean": "node ./scripts/clean.mjs",
+		"readme": "node ./scripts/readme.mjs",
 		"release": "node ./scripts/release.mjs",
 		"release:all": "node ./scripts/release-all.mjs",
 		"analyze": "cem analyze --globs \"packages/**/*.ts\" --exclude \"packages/**/*.(stories|test).ts\" --litelement"

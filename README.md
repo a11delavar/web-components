@@ -1,3 +1,17 @@
-[![Storybook Demo](https://img.shields.io/badge/-Storybook%20Demo-pink.svg)](https://a11delavar.github.io/web-components/)
 
-## Web Components
+<div align="center">
+<h3>A11D Web Components</h3>
+
+[![Tests](https://img.shields.io/github/actions/workflow/status/a11delavar/web-components/development.yml?logo=github&style=for-the-badge&label=Tests)](https://a11delavar.github.io/web-components/actions/workflows/development.yml)
+[![Stories](https://img.shields.io/badge/-Stories-pink.svg?logo=storybook&style=for-the-badge)](https://a11delavar.github.io/web-components/)
+
+
+| Module  | Package | Version | Downloads |
+| ------- | ------- | ------- | --------- |
+| [Array.prototype.group](packages/Array.prototype.group) | [![](https://img.shields.io/badge/%40a11d%2Farray.prototype.group-8A2BE2?style=for-the-badge&logo=npm&logoColor=red&color=white)](https://www.npmjs.com/package/@a11d/array.prototype.group) | [![](https://img.shields.io/npm/v/%40a11d%2Farray.prototype.group?style=for-the-badge&label=)](https://www.npmjs.com/package/@a11d/array.prototype.group) | [![](https://img.shields.io/npm/dm/%40a11d%2Farray.prototype.group?style=for-the-badge&label=&color=blue)](https://www.npmjs.com/package/@a11d/array.prototype.group) |
+| [Chart](packages/Chart) | [![](https://img.shields.io/badge/%40a11d%2Flit--chart-8A2BE2?style=for-the-badge&logo=npm&logoColor=red&color=white)](https://www.npmjs.com/package/@a11d/lit-chart) | [![](https://img.shields.io/npm/v/%40a11d%2Flit-chart?style=for-the-badge&label=)](https://www.npmjs.com/package/@a11d/lit-chart) | [![](https://img.shields.io/npm/dm/%40a11d%2Flit-chart?style=for-the-badge&label=&color=blue)](https://www.npmjs.com/package/@a11d/lit-chart) |
+| [QrCode](packages/QrCode) | [![](https://img.shields.io/badge/%40a11d%2Flit--qr--code-8A2BE2?style=for-the-badge&logo=npm&logoColor=red&color=white)](https://www.npmjs.com/package/@a11d/lit-qr-code) | [![](https://img.shields.io/npm/v/%40a11d%2Flit-qr-code?style=for-the-badge&label=)](https://www.npmjs.com/package/@a11d/lit-qr-code) | [![](https://img.shields.io/npm/dm/%40a11d%2Flit-qr-code?style=for-the-badge&label=&color=blue)](https://www.npmjs.com/package/@a11d/lit-qr-code) |
+| [Slider](packages/Slider) | [![](https://img.shields.io/badge/%40a11d%2Flit--slider-8A2BE2?style=for-the-badge&logo=npm&logoColor=red&color=white)](https://www.npmjs.com/package/@a11d/lit-slider) | [![](https://img.shields.io/npm/v/%40a11d%2Flit-slider?style=for-the-badge&label=)](https://www.npmjs.com/package/@a11d/lit-slider) | [![](https://img.shields.io/npm/dm/%40a11d%2Flit-slider?style=for-the-badge&label=&color=blue)](https://www.npmjs.com/package/@a11d/lit-slider) |
+| [Tweet](packages/Tweet) | [![](https://img.shields.io/badge/%40a11d%2Flit--tweet-8A2BE2?style=for-the-badge&logo=npm&logoColor=red&color=white)](https://www.npmjs.com/package/@a11d/lit-tweet) | [![](https://img.shields.io/npm/v/%40a11d%2Flit-tweet?style=for-the-badge&label=)](https://www.npmjs.com/package/@a11d/lit-tweet) | [![](https://img.shields.io/npm/dm/%40a11d%2Flit-tweet?style=for-the-badge&label=&color=blue)](https://www.npmjs.com/package/@a11d/lit-tweet) |
+
+</div>
