@@ -1,4 +1,4 @@
-import { Component, component, css, html, property } from '@a11d/lit'
+import { Component, component, css, eventListener, html, property, query } from '@a11d/lit'
 
 /**
  * @element lit-tweet
@@ -16,6 +16,17 @@ export class Tweet extends Component {
 	@property() theme: 'light' | 'dark' = 'light'
 	@property({ type: Boolean }) hideConversations = false
 	@property({ type: Boolean }) hideMedia = false
+
+	@eventListener({ target: window, type: 'message' })
+	protected handleMessage(event: MessageEvent) {
+		const twitterData = event.data?.['twttr.embed']
+		if (event.origin === 'https://platform.twitter.com' && event.source === this.iframeElement?.contentWindow && twitterData?.method === 'twttr.private.resize') {
+			const height = twitterData.params?.[0]?.height
+			this.style.height = `${height}px`
+		}
+	}
+
+	@query('iframe') protected readonly iframeElement?: HTMLIFrameElement
 
 	protected get tweetId() {
 		return !this.tweet?.includes('status')
@@ -46,12 +57,9 @@ export class Tweet extends Component {
 		return css`
 			:host {
 				display: inline-block;
-				height: 500px;
 			}
 
 			iframe {
-				visibility: visible;
-				display: block;
 				width: 100%;
 				height: 100%;
 				border-radius: 13px;
