@@ -95,7 +95,7 @@ export class Packages {
 	static async release(packageName, versionBumpType) {
 		const packageDirectory = Packages.getDirectory(packageName)
 		await run('npm run clean')
-		await run('tsc', packageDirectory)
+		await run('npm run build', packageDirectory)
 		await run(`npm version --loglevel=error ${versionBumpType}`, packageDirectory)
 		await run('npm publish --loglevel=error --access public', packageDirectory)
 		await run('npm run clean')
