@@ -19,7 +19,7 @@ export class MonacoDiffEditor extends MonacoEditorBase {
 	protected override instantiateEditor() {
 		const editor = monaco.editor.createDiffEditor(this.mainElement, {
 			automaticLayout: true,
-			readOnly: false,
+			readOnly: this.readOnly,
 			minimap: {
 				enabled: false,
 				showSlider: 'always',

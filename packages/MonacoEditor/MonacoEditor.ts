@@ -11,10 +11,6 @@ import * as monaco from 'monaco-editor'
 export class MonacoEditor extends MonacoEditorBase {
 	@event() readonly change!: EventDispatcher<string>
 
-	@property({ type: Boolean })
-	get readOnly() { return this.editor?.getOption(monaco.editor.EditorOption.readOnly) ?? false }
-	set readOnly(value: boolean) { this.editor?.updateOptions({ readOnly: value }) }
-
 	@property({
 		updated(this: MonacoEditor) {
 			if (this.editor && this.value !== this.editor.getValue()) {
@@ -30,7 +26,7 @@ export class MonacoEditor extends MonacoEditorBase {
 			language: 'markdown',
 			'semanticHighlighting.enabled': true,
 			automaticLayout: true,
-			readOnly: false,
+			readOnly: this.readOnly,
 			minimap: {
 				enabled: false,
 				showSlider: 'always',

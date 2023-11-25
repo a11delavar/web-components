@@ -29,6 +29,13 @@ export abstract class MonacoEditorBase extends Component {
 		}
 	}) theme?: 'dark' | 'light'
 
+	@property({
+		type: Boolean,
+		updated(this: MonacoEditorBase, readOnly: boolean) {
+			this.editor?.updateOptions({ readOnly })
+		}
+	}) readOnly = false
+
 	override dir = 'ltr'
 
 	protected override initialized() {
