@@ -1,7 +1,7 @@
 import './group.js'
 
 if ('groupToMap' in Array.prototype === false) {
-	Array.prototype.groupToMap = function (keySelector) {
+	(Array.prototype as any).groupToMap = function (keySelector: any) {
 		return new Map(Object.entries(this.group(keySelector))) as any
 	}
 }

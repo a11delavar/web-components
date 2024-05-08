@@ -1,6 +1,6 @@
 if ('group' in Array.prototype === false) {
-	Array.prototype.group = function (keySelector) {
-		return this.reduce((storage, item) => {
+	(Array.prototype as any).group = function (keySelector: any) {
+		return this.reduce((storage: any, item: any) => {
 			const group = keySelector(item);
 			(storage[group] ||= []).push(item)
 			return storage
