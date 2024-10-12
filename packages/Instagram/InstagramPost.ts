@@ -32,7 +32,7 @@ export class InstagramPost extends Component {
 			if (url.pathname.endsWith('/embed') === false) {
 				url.pathname += '/embed'
 			}
-		} catch (error) {
+		} catch {
 			url = new URL(`https://www.instagram.com/p/${this.post}/embed`)
 		}
 		return url.toString()

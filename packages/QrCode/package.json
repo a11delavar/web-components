@@ -24,10 +24,6 @@
 	"files": [
 		"dist"
 	],
-	"scripts": {
-		"start": "webpack serve --mode=development",
-		"build": "tsc"
-	},
 	"dependencies": {
 		"@a11d/lit": "x",
 		"@3mo/slot-controller": "x",

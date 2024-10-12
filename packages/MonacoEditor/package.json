@@ -29,7 +29,6 @@
 		"dist"
 	],
 	"scripts": {
-		"start": "webpack serve --mode=development",
 		"build": "tsc && cpx ./codicon.ttf ./dist && cpx ./buildMonaco.mjs ./dist"
 	},
 	"dependencies": {

@@ -1,35 +1,71 @@
-const path = require('path')
-const ResolveTypeScriptPlugin = require('resolve-typescript-plugin')
+import { dirname, join } from 'path'
+import ResolveTypeScriptPlugin from 'resolve-typescript-plugin'
+import type { StorybookConfig } from '@storybook/web-components-webpack5'
 
-module.exports = {
+export default {
 	stories: [
-		"../packages/**/*.stories.ts"
+		'../packages/**/*.stories.ts',
 	],
-	framework: "@storybook/web-components",
-	core: {
-		builder: "@storybook/builder-webpack5"
+
+	staticDirs: ['./public'],
+
+	addons: [
+		getPackageAbsolutePath('@storybook/addon-links'),
+		{
+			name: getPackageAbsolutePath('@storybook/addon-essentials'),
+			options: {
+				backgrounds: false,
+				actions: false,
+			}
+		},
+		getPackageAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
+		getPackageAbsolutePath('@storybook/addon-storysource'),
+		getPackageAbsolutePath('storybook-dark-mode'),
+	],
+
+	framework: {
+		name: getPackageAbsolutePath('@storybook/web-components-webpack5'),
+		options: {}
 	},
-	webpackFinal: config => {
+
+	webpackFinal: (config: any) => {
 		config.mode = 'development'
-		const [_babel, ...rest] = config.module.rules
+
+		config.output.filename = 'main.js'
+		config.optimization = {}
+
+		const exceptBabel = config.module.rules.slice(0, -1)
 		config.module.rules = [
 			{
-				test: /\.ts?$/,
+				test: /\.ts(x)?$/,
 				loader: 'ts-loader',
 				options: {
 					compilerOptions: {
+						target: 'ES2020',
+						importHelpers: true,
 						emitDeclarationOnly: false,
 						noImplicitAny: false,
 						noUnusedLocals: false,
 						declaration: false,
 						declarationMap: false,
 						allowJs: false,
+						jsx: 'react-jsx',
 					}
 				}
 			},
-			...rest
+			...exceptBabel
 		]
-		config.resolve.plugins = [...(config.resolve.plugins ?? []), new ResolveTypeScriptPlugin()]
+		config.resolve.plugins = [
+			...(config.resolve.plugins ?? []),
+			new ResolveTypeScriptPlugin(),
+		]
+
 		return config
 	},
+
+	docs: {}
+} as StorybookConfig
+
+function getPackageAbsolutePath(value: string): any {
+	return dirname(require.resolve(join(value, 'package.json')))
 }

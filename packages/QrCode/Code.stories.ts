@@ -1,9 +1,9 @@
-import { story, meta } from '../../.storybook/story.js'
+import type { Meta, StoryObj } from '@storybook/web-components'
 import { html } from '@a11d/lit'
 import p from './package.json'
 import './index.js'
 
-export default meta({
+export default {
 	title: 'QrCode',
 	component: 'lit-qr-code',
 	args: {
@@ -12,15 +12,9 @@ export default meta({
 	argTypes: {
 		value: { control: 'text' },
 	},
-	parameters: {
-		docs: {
-			description: {
-				component: p.description,
-			},
-		}
-	}
-})
+	package: p,
+} as Meta
 
-export const Code = story({
+export const Code: StoryObj = {
 	render: ({ value }) => html`<lit-qr-code color='dark' value=${value}></lit-qr-code>`
-})
+}

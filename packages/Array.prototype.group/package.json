@@ -23,9 +23,5 @@
 	"types": "dist/index.d.ts",
 	"files": [
 		"dist"
-	],
-	"scripts": {
-		"start": "webpack serve --mode=development",
-		"build": "tsc"
-	}
+	]
 }
