@@ -1,6 +1,6 @@
 {
 	"name": "@a11d/lit-monaco-editor",
-	"version": "0.40.0",
+	"version": "0.40.2",
 	"description": "The Monaco Editor is the fully featured code editor from VS Code. This is a wrapper around it to make it easier to use in a web component.",
 	"repository": {
 		"type": "git",
@@ -29,7 +29,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc && cpx ./codicon.ttf ./dist && cpx ./buildMonaco.mjs ./dist"
+		"build": "cpx ./codicon.ttf ./dist && cpx ./buildMonaco.mjs ./dist"
 	},
 	"dependencies": {
 		"@a11d/lit": "x",

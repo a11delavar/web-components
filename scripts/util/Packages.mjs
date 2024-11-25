@@ -35,6 +35,8 @@ export class Package {
 	async release(versionBumpType) {
 		await run('npm run clean')
 		console.log(await run('tsc', this.relativePath) || 'TypeScript compiled successfully')
+		// Only some packages have a (post) build script, ignore errors:
+		await run('npm run build', this.relativePath, true)
 		await run('npm run analyze', undefined, true)
 		if (versionBumpType.startsWith('pre')) {
 			versionBumpType = versionBumpType.replace('prepatch', 'prerelease')

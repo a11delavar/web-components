@@ -12,6 +12,7 @@ export class MonacoEditor extends MonacoEditorBase {
 	@event() readonly change!: EventDispatcher<string>
 
 	@property({
+		bindingDefault: true,
 		updated(this: MonacoEditor) {
 			if (this.editor && this.value !== this.editor.getValue()) {
 				this.editor.setValue(this.value)
